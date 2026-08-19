@@ -1,0 +1,39 @@
+{
+  "language": "javascript",
+  "slug": "js-basics",
+  "topic": "Basics",
+  "title": "JavaScript Basics",
+  "order": 1,
+  "questions": [
+    {
+      "type": "multiple-choice",
+      "prompt": "Which operator checks value AND type equality in JavaScript?",
+      "options": ["==", "===", "=", "!="],
+      "correct": [1],
+      "explanation": "`===` is strict equality: it compares value and type with no coercion. `==` coerces operands before comparing; `=` is assignment, not comparison."
+    },
+    {
+      "type": "multiple-choice",
+      "prompt": "What does `typeof null` evaluate to in JavaScript?",
+      "options": ["\"null\"", "\"undefined\"", "\"object\"", "\"boolean\""],
+      "correct": [2],
+      "explanation": "`typeof null` returns `\"object\"` — a long-standing quirk in JavaScript kept for backward compatibility."
+    },
+    {
+      "type": "predict-output",
+      "prompt": "What does this print?\n\n```javascript\nconsole.log([1, 2, 3].map(x => x * 2));\n```",
+      "options": ["[1, 2, 3]", "[2, 4, 6]", "[1, 4, 9]", "undefined"],
+      "correct": [1],
+      "explanation": "`Array.prototype.map` returns a new array with the callback applied to every element, so doubling each of `[1, 2, 3]` gives `[2, 4, 6]`."
+    },
+    {
+      "type": "write-code",
+      "prompt": "Implement `add(a, b)` that returns their sum.",
+      "codeLanguage": "javascript",
+      "starterCode": "function add(a, b) {\n  // your code\n}",
+      "solution": "function add(a, b) {\n  return a + b;\n}",
+      "tests": "assert(add(2, 3) === 5, 'add(2,3) should be 5');\nassert(add(-1, 1) === 0, 'add(-1,1) should be 0');\nassert(add(0, 0) === 0, 'add(0,0) should be 0');",
+      "explanation": "Return `a + b`. The hidden tests check a positive pair, a pair that cancels out, and zero."
+    }
+  ]
+}

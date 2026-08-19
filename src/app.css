@@ -20,3 +20,7 @@ body { background: var(--bg); color: var(--fg); }
 .search { width: 100%; padding: 10px 12px; margin: 8px 0 16px; border: 1px solid var(--border); border-radius: 8px; background: transparent; color: inherit; font-size: 1em; }
 .matches { font-size: 0.85em; opacity: 0.75; margin: 4px 0 0; padding-left: 18px; }
 .lang-title { text-transform: capitalize; }
+.topbar-left { display: flex; align-items: baseline; gap: 16px; }
+.mainnav { display: flex; gap: 12px; }
+.mainnav a { text-decoration: none; color: inherit; opacity: 0.8; font-size: 0.95em; }
+.mainnav a:hover { opacity: 1; }

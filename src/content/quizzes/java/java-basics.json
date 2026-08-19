@@ -1,0 +1,45 @@
+{
+  "language": "java",
+  "slug": "java-basics",
+  "topic": "Basics",
+  "title": "Java Basics",
+  "order": 1,
+  "questions": [
+    {
+      "type": "multiple-choice",
+      "prompt": "Which method converts a `String` to a primitive `int` in Java?",
+      "options": ["Integer.parseInt(s)", "Integer.valueOf(int)", "String.toInt(s)", "(int) s"],
+      "correct": [0],
+      "explanation": "`Integer.parseInt(String)` parses text into a primitive `int`. `Integer.valueOf(int)` takes an `int` (boxing it, not the reverse); `String.toInt` and casting a `String` with `(int)` do not exist in Java."
+    },
+    {
+      "type": "multiple-choice",
+      "prompt": "How do you get the number of elements in a Java array `int[] a`?",
+      "options": ["a.length()", "a.length", "a.size()", "a.count"],
+      "correct": [1],
+      "explanation": "Arrays expose `length` as a field, not a method call. `.length()` is a `String` method; `.size()` belongs to collections like `ArrayList`."
+    },
+    {
+      "type": "multiple-choice",
+      "prompt": "What is the correct way to compare two `String` objects for equal content in Java?",
+      "options": ["a == b", "a.equals(b)", "a.compareTo(b) == true", "a === b"],
+      "correct": [1],
+      "explanation": "`==` compares object references (identity), not content, for reference types. `.equals()` compares content. `compareTo` returns an `int` (not comparable to `true`), and `===` does not exist in Java."
+    },
+    {
+      "type": "predict-output",
+      "prompt": "What does this print?\n\n```java\nString s = \"hello world\";\nSystem.out.println(s.substring(0, 5));\n```",
+      "options": ["hello", "hello ", "ello", "hello world"],
+      "correct": [0],
+      "explanation": "`substring(start, end)` is end-exclusive, so indices 0 through 4 are taken: characters `h`, `e`, `l`, `l`, `o` give `\"hello\"`."
+    },
+    {
+      "type": "write-code",
+      "prompt": "Write a method `isEven(int n)` that returns whether `n` is even.",
+      "codeLanguage": "java",
+      "starterCode": "static boolean isEven(int n) {\n    // your code\n}",
+      "solution": "static boolean isEven(int n) {\n    return n % 2 == 0;\n}",
+      "explanation": "Use the modulo operator: a number is even exactly when `n % 2 == 0`. In Java, `%` yields a result of zero for evenly divisible operands regardless of the sign of `n`."
+    }
+  ]
+}

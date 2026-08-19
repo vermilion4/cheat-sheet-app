@@ -7,7 +7,13 @@ export function Layout({ children }: { children: ReactNode }) {
   return (
     <div className="app">
       <header className="topbar">
-        <Link to="/" className="brand">Cheat Sheets</Link>
+        <div className="topbar-left">
+          <Link to="/" className="brand">Cheat Sheets</Link>
+          <nav className="mainnav">
+            <Link to="/">Sheets</Link>
+            <Link to="/quizzes">Quizzes</Link>
+          </nav>
+        </div>
         <button className="theme-toggle" onClick={toggle} aria-label="Toggle theme">
           {theme === 'dark' ? '☀️' : '🌙'}
         </button>

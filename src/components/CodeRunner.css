@@ -1,0 +1,8 @@
+.runner { display: flex; flex-direction: column; gap: 10px; }
+.runner .cm-editor { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.runner-controls { display: flex; gap: 8px; }
+.runner-controls button { padding: 8px 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--accent); color: #fff; cursor: pointer; }
+.runner-controls button:disabled { opacity: 0.6; cursor: default; }
+.runner-output { background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px; white-space: pre-wrap; overflow-x: auto; }
+.runner-selfassess { display: flex; gap: 8px; align-items: center; margin-top: 8px; }
+.runner-selfassess button { padding: 6px 12px; border: 1px solid var(--border); border-radius: 8px; background: transparent; color: inherit; cursor: pointer; }

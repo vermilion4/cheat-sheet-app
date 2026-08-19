@@ -1,13 +1,18 @@
 import { Routes, Route, useParams, Navigate } from 'react-router-dom'
 import { getManifestSafe } from './lib/content'
+import { getQuizManifestSafe } from './lib/quizzes'
 import { Home } from './pages/Home'
 import { Language } from './pages/Language'
 import { Sheet } from './pages/Sheet'
+import { Quizzes } from './pages/Quizzes'
+import { QuizLanguage } from './pages/QuizLanguage'
+import { QuizRunner } from './pages/QuizRunner'
 import { Layout } from './components/Layout'
 import { ErrorBoundary } from './components/ErrorBoundary'
 import './app.css'
 
 const { manifest, error } = getManifestSafe()
+const { groups: quizGroups, error: quizError } = getQuizManifestSafe()
 
 function LanguageRoute() {
   const { language } = useParams()
@@ -22,13 +27,26 @@ function SheetRoute() {
   return <Sheet group={group} slug={slug} />
 }
 
+function QuizLanguageRoute() {
+  const { language } = useParams()
+  const group = quizGroups.find((g) => g.language === language)
+  return group ? <QuizLanguage group={group} /> : <Navigate to="/quizzes" replace />
+}
+
+function QuizRunnerRoute() {
+  const { language, slug } = useParams()
+  const group = quizGroups.find((g) => g.language === language)
+  const quiz = group?.quizzes.find((q) => q.slug === slug)
+  return quiz ? <QuizRunner quiz={quiz} /> : <Navigate to="/quizzes" replace />
+}
+
 export default function App() {
-  if (error) {
+  if (error || quizError) {
     return (
       <Layout>
         <h1>Content failed to load</h1>
         <p>The cheat-sheet content could not be loaded. Details:</p>
-        <pre>{error}</pre>
+        <pre>{error || quizError}</pre>
       </Layout>
     )
   }
@@ -38,6 +56,9 @@ export default function App() {
         <Route path="/" element={<Home manifest={manifest} />} />
         <Route path="/lang/:language" element={<LanguageRoute />} />
         <Route path="/lang/:language/:slug" element={<SheetRoute />} />
+        <Route path="/quizzes" element={<Quizzes groups={quizGroups} />} />
+        <Route path="/quizzes/:language" element={<QuizLanguageRoute />} />
+        <Route path="/quizzes/:language/:slug" element={<QuizRunnerRoute />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </ErrorBoundary>
