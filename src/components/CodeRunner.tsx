@@ -26,22 +26,48 @@ export function CodeRunner({ question, onGraded }: { question: WriteCode; onGrad
 
   return (
     <div className="runner">
-      <CodeEditor value={code} onChange={setCode} language={question.codeLanguage} />
+      <div className="editor-pane">
+        <div className="editor-head">
+          <span className="dots" aria-hidden="true">
+            <i />
+            <i />
+            <i />
+          </span>
+          <span className="editor-lang">{question.codeLanguage}</span>
+        </div>
+        <CodeEditor value={code} onChange={setCode} language={question.codeLanguage} />
+      </div>
+
       <div className="runner-controls">
         {canRun && (
-          <button onClick={handleRun} disabled={running}>{running ? 'Running…' : 'Run'}</button>
+          <button className="run" onClick={handleRun} disabled={running}>
+            {running ? 'Running…' : '▶ Run'}
+          </button>
         )}
-        <button onClick={() => setRevealed(true)}>Show solution</button>
+        <button className="ghost" onClick={() => setRevealed(true)}>
+          Show solution
+        </button>
       </div>
-      {output !== null && <pre className="runner-output">{output}</pre>}
+
+      {output !== null && (
+        <div className="output-pane">
+          <div className="output-head">Output</div>
+          <pre className="runner-output">{output}</pre>
+        </div>
+      )}
+
       {revealed && (
         <div className="runner-solution">
           <Markdown source={'**Solution**\n\n```' + question.codeLanguage + '\n' + question.solution + '\n```'} />
           {!question.tests && (
             <div className="runner-selfassess">
               <span>Did you get it right?</span>
-              <button onClick={() => onGraded(true)}>Mark correct</button>
-              <button onClick={() => onGraded(false)}>Mark incorrect</button>
+              <button className="mark-good" onClick={() => onGraded(true)}>
+                Mark correct
+              </button>
+              <button className="mark-bad" onClick={() => onGraded(false)}>
+                Mark incorrect
+              </button>
             </div>
           )}
         </div>

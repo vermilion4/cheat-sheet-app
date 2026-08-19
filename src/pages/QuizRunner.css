@@ -1,6 +1,94 @@
-.runner-page { display: flex; flex-direction: column; gap: 14px; }
-.runner-page .progress { opacity: 0.7; font-size: 0.9em; margin: 0; }
-.runner-page .next { align-self: flex-start; padding: 8px 18px; border: none; border-radius: 8px; background: var(--accent); color: #fff; cursor: pointer; }
-.results { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
-.results .score { font-size: 2rem; font-weight: 700; }
-.results button { padding: 8px 18px; border: 1px solid var(--border); border-radius: 8px; background: transparent; color: inherit; cursor: pointer; }
+.runner-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: var(--readw);
+}
+
+/* segmented progress */
+.progress-track {
+  display: flex;
+  gap: 6px;
+}
+.progress-track .seg {
+  flex: 1;
+  height: 5px;
+  border-radius: 3px;
+  background: var(--surface-3);
+  transition: background 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.progress-track .seg.current {
+  background: var(--lang);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--lang) 55%, transparent);
+}
+.progress-track .seg.good {
+  background: var(--string);
+}
+.progress-track .seg.bad {
+  background: var(--error);
+}
+
+.runner-page .progress {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+/* shared primary action */
+.primary {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 22px;
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  font-weight: 500;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--keyword);
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.18s var(--ease), box-shadow 0.18s var(--ease);
+}
+.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px -14px color-mix(in srgb, var(--keyword) 85%, transparent);
+}
+.next span {
+  transition: transform 0.18s var(--ease);
+}
+.next:hover span {
+  transform: translateX(3px);
+}
+
+/* results */
+.results {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  padding: clamp(26px, 5vw, 44px);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  animation: pop 0.4s var(--ease) both;
+}
+.results .score {
+  margin: 4px 0 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(3.2rem, 12vw, 5rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--lang);
+}
+.results .score-caption {
+  margin: 0 0 8px;
+  color: var(--text-dim);
+  max-width: 40ch;
+}

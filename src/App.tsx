@@ -44,16 +44,18 @@ export default function App() {
   if (error || quizError) {
     return (
       <Layout>
-        <h1>Content failed to load</h1>
-        <p>The cheat-sheet content could not be loaded. Details:</p>
-        <pre>{error || quizError}</pre>
+        <div className="error-screen">
+          <h1>Content failed to load</h1>
+          <p>A content file couldn&apos;t be parsed. Details:</p>
+          <pre>{error || quizError}</pre>
+        </div>
       </Layout>
     )
   }
   return (
     <ErrorBoundary>
       <Routes>
-        <Route path="/" element={<Home manifest={manifest} />} />
+        <Route path="/" element={<Home manifest={manifest} quizGroups={quizGroups} />} />
         <Route path="/lang/:language" element={<LanguageRoute />} />
         <Route path="/lang/:language/:slug" element={<SheetRoute />} />
         <Route path="/quizzes" element={<Quizzes groups={quizGroups} />} />

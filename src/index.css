@@ -1,2 +1,21 @@
-* { box-sizing: border-box; }
-body { margin: 0; font-family: system-ui, -apple-system, sans-serif; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Remove default focus ring in favour of the app's own (defined in app.css) */
+:focus:not(:focus-visible) {
+  outline: none;
+}

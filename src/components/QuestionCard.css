@@ -1,11 +1,151 @@
-.qcard { display: flex; flex-direction: column; gap: 12px; }
-.qcard .options { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
-.qcard .opt { width: 100%; text-align: left; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; background: transparent; color: inherit; cursor: pointer; }
-.qcard .opt-selected { border-color: var(--accent); }
-.qcard .opt-correct { border-color: #16a34a; background: rgba(22,163,74,0.12); }
-.qcard .opt-wrong { border-color: #dc2626; background: rgba(220,38,38,0.12); }
-.qcard .submit { align-self: flex-start; padding: 8px 16px; border: none; border-radius: 8px; background: var(--accent); color: #fff; cursor: pointer; }
-.qcard .submit:disabled { opacity: 0.6; cursor: default; }
-.qcard .feedback { border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; }
-.qcard .feedback.ok strong { color: #16a34a; }
-.qcard .feedback.bad strong { color: #dc2626; }
+.qcard {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: clamp(18px, 3vw, 26px);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  animation: pop 0.35s var(--ease) both;
+}
+.qcard .md {
+  font-size: 1.05rem;
+}
+
+.qcard .options {
+  counter-reset: opt;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.qcard .opt {
+  counter-increment: opt;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  text-align: left;
+  padding: 14px 16px;
+  font-family: var(--font-body);
+  font-size: 0.98rem;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: border-color 0.18s var(--ease), background 0.18s var(--ease),
+    transform 0.18s var(--ease);
+}
+.qcard .opt::before {
+  content: counter(opt, upper-alpha);
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  background: var(--surface-3);
+  border: 1px solid var(--border);
+  transition: all 0.18s var(--ease);
+}
+.qcard .opt:not(:disabled):hover {
+  border-color: var(--border-2);
+  transform: translateX(2px);
+}
+.qcard .opt-selected {
+  border-color: var(--keyword);
+  background: color-mix(in srgb, var(--keyword) 10%, var(--surface-2));
+}
+.qcard .opt-selected::before {
+  color: #fff;
+  background: var(--keyword);
+  border-color: var(--keyword);
+}
+.qcard .opt:disabled {
+  cursor: default;
+}
+.qcard .opt-correct {
+  border-color: var(--string);
+  background: color-mix(in srgb, var(--string) 14%, var(--surface-2));
+  animation: pulseGood 0.6s var(--ease);
+}
+.qcard .opt-correct::before {
+  content: '✓';
+  color: #071b13;
+  background: var(--string);
+  border-color: var(--string);
+}
+.qcard .opt-wrong {
+  border-color: var(--error);
+  background: color-mix(in srgb, var(--error) 14%, var(--surface-2));
+  animation: shake 0.4s var(--ease);
+}
+.qcard .opt-wrong::before {
+  content: '✕';
+  color: #2a0a10;
+  background: var(--error);
+  border-color: var(--error);
+}
+
+.qcard .submit {
+  align-self: flex-start;
+  padding: 11px 22px;
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  font-weight: 500;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--keyword);
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.18s var(--ease), box-shadow 0.18s var(--ease), opacity 0.18s var(--ease);
+}
+.qcard .submit:not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -12px color-mix(in srgb, var(--keyword) 80%, transparent);
+}
+.qcard .submit:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.qcard .feedback {
+  border: 1px solid var(--border);
+  border-left-width: 3px;
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  background: var(--surface-2);
+  animation: fadeUp 0.3s var(--ease) both;
+}
+.qcard .feedback .md {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+}
+.qcard .feedback strong {
+  display: block;
+  margin-bottom: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.qcard .feedback.ok {
+  border-left-color: var(--string);
+}
+.qcard .feedback.ok strong {
+  color: var(--string);
+}
+.qcard .feedback.bad {
+  border-left-color: var(--error);
+}
+.qcard .feedback.bad strong {
+  color: var(--error);
+}

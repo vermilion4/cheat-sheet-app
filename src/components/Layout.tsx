@@ -1,6 +1,8 @@
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import type { ReactNode } from 'react'
 import { useTheme } from '../lib/useTheme'
+
+const navClass = ({ isActive }: { isActive: boolean }) => (isActive ? 'active' : undefined)
 
 export function Layout({ children }: { children: ReactNode }) {
   const { theme, toggle } = useTheme()
@@ -8,14 +10,27 @@ export function Layout({ children }: { children: ReactNode }) {
     <div className="app">
       <header className="topbar">
         <div className="topbar-left">
-          <Link to="/" className="brand">Cheat Sheets</Link>
+          <Link to="/" className="brand" aria-label="cheatsheet home">
+            <span className="brand-mark">
+              cheat<b>sheet</b>
+            </span>
+            <span className="caret" aria-hidden="true" />
+          </Link>
           <nav className="mainnav">
-            <Link to="/">Sheets</Link>
-            <Link to="/quizzes">Quizzes</Link>
+            <NavLink to="/" end className={navClass}>
+              Sheets
+            </NavLink>
+            <NavLink to="/quizzes" className={navClass}>
+              Quizzes
+            </NavLink>
           </nav>
         </div>
-        <button className="theme-toggle" onClick={toggle} aria-label="Toggle theme">
-          {theme === 'dark' ? '☀️' : '🌙'}
+        <button
+          className="theme-toggle"
+          onClick={toggle}
+          aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+        >
+          {theme === 'dark' ? '☀' : '☾'}
         </button>
       </header>
       <main className="content">{children}</main>

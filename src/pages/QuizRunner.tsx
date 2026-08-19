@@ -46,14 +46,44 @@ export function QuizRunner({ quiz }: { quiz: Quiz }) {
     setFinished(false)
   }
 
+  function segClass(i: number) {
+    if (results[i] === true) return 'seg good'
+    if (results[i] === false) return 'seg bad'
+    if (i === index && !finished) return 'seg current'
+    return 'seg'
+  }
+
+  const progress = (
+    <div className="progress-track" aria-hidden="true">
+      {quiz.questions.map((_, i) => (
+        <span key={i} className={segClass(i)} />
+      ))}
+    </div>
+  )
+
   if (finished) {
+    const pct = Math.round((correctCount / total) * 100)
     return (
       <Layout>
-        <div className="results">
-          <p><Link to={`/quizzes/${encodeURIComponent(quiz.language)}`}>&larr; {quiz.language}</Link></p>
-          <h1>{quiz.title} — Results</h1>
-          <p className="score">{correctCount} / {total}</p>
-          <button onClick={retry}>Retry</button>
+        <div className="runner-page" data-lang={quiz.language}>
+          <Link to={`/quizzes/${encodeURIComponent(quiz.language)}`} className="backlink">
+            ← {quiz.language}
+          </Link>
+          {progress}
+          <div className="results">
+            <p className="eyebrow">{quiz.title}</p>
+            <p className="score">{correctCount} / {total}</p>
+            <p className="score-caption">
+              {pct === 100
+                ? 'Flawless. Every question correct.'
+                : pct >= 70
+                  ? 'Nicely done — solid grasp of the basics.'
+                  : 'Good start. Review the explanations and run it back.'}
+            </p>
+            <button className="primary" onClick={retry}>
+              Retry quiz
+            </button>
+          </div>
         </div>
       </Layout>
     )
@@ -61,12 +91,19 @@ export function QuizRunner({ quiz }: { quiz: Quiz }) {
 
   return (
     <Layout>
-      <div className="runner-page">
-        <p><Link to={`/quizzes/${encodeURIComponent(quiz.language)}`}>&larr; {quiz.language}</Link></p>
-        <p className="progress">Question {index + 1} of {total}</p>
+      <div className="runner-page" data-lang={quiz.language}>
+        <Link to={`/quizzes/${encodeURIComponent(quiz.language)}`} className="backlink">
+          ← {quiz.language}
+        </Link>
+        {progress}
+        <p className="progress">
+          Question {index + 1} of {total}
+        </p>
         <QuestionCard key={index} question={quiz.questions[index]} onGraded={handleGraded} />
         {graded !== null && (
-          <button className="next" onClick={next}>{isLast ? 'Finish' : 'Next'}</button>
+          <button className="next primary" onClick={next}>
+            {isLast ? 'Finish' : 'Next'} <span aria-hidden="true">→</span>
+          </button>
         )}
       </div>
     </Layout>
