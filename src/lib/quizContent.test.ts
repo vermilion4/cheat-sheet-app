@@ -19,4 +19,21 @@ describe('shipped quiz content', () => {
     const hasTested = js.quizzes.some((q) => q.questions.some((x) => x.type === 'write-code' && typeof x.tests === 'string'))
     expect(hasTested).toBe(true)
   })
+
+  it('ships the CST8116 midterm mock under java', () => {
+    const { groups } = getQuizManifestSafe()
+    const java = groups.find((g) => g.language === 'java')!
+    expect(java.quizzes.map((q) => q.slug)).toContain('cst8116-midterm-mock')
+  })
+
+  it('the midterm mock exercises every question type the engine supports', () => {
+    const { groups } = getQuizManifestSafe()
+    const mock = groups
+      .flatMap((g) => g.quizzes)
+      .find((q) => q.slug === 'cst8116-midterm-mock')!
+    const used = new Set(mock.questions.map((q) => q.type))
+    for (const t of ['multiple-choice', 'predict-output', 'true-false', 'fill-blank', 'trace-output', 'match', 'order']) {
+      expect(used).toContain(t)
+    }
+  })
 })

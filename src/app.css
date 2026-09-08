@@ -7,6 +7,8 @@
 /* ---- Tokens: dark (the hero theme) ---- */
 :root,
 :root[data-theme='dark'] {
+  /* Makes native controls (selects, textareas, scrollbars) match the theme. */
+  color-scheme: dark;
   --bg: #0a0c10;
   --bg-2: #0d1017;
   --surface: #10141c;
@@ -49,6 +51,7 @@
 
 /* ---- Tokens: light (considered counterpart) ---- */
 :root[data-theme='light'] {
+  color-scheme: light;
   --bg: #f6f7f9;
   --bg-2: #ffffff;
   --surface: #ffffff;

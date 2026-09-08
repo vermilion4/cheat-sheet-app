@@ -149,3 +149,235 @@
 .qcard .feedback.bad strong {
   color: var(--error);
 }
+
+/* ---- shared hint + reveal ---- */
+.qcard .qhint {
+  margin: -8px 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  color: var(--text-dim);
+}
+.qcard .reveal {
+  margin: 0 0 10px;
+  font-size: 0.92rem;
+  color: var(--text);
+}
+.qcard .reveal code {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: var(--surface-3);
+  border: 1px solid var(--border);
+}
+.qcard .reveal-list {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.qcard .expected-output {
+  margin: 6px 0 0;
+  padding: 10px 12px;
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  white-space: pre;
+  overflow-x: auto;
+  background: var(--surface-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+/* ---- true / false ---- */
+.qcard .tf-options {
+  flex-direction: row;
+  gap: 12px;
+}
+.qcard .tf-options li {
+  flex: 1;
+}
+.qcard .tf-options .opt {
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+}
+.qcard .tf-options .opt::before {
+  content: none;
+}
+.qcard .tf-options .opt-correct::before,
+.qcard .tf-options .opt-wrong::before {
+  content: none;
+}
+
+/* ---- fill in the blank ---- */
+.qcard .blanks {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.qcard .blank-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.qcard .blank-label {
+  flex: none;
+  min-width: 78px;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.qcard .blank-input,
+.qcard .trace-input,
+.qcard .match-select {
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 11px 14px;
+  transition: border-color 0.18s var(--ease), background 0.18s var(--ease);
+}
+.qcard .blank-input {
+  flex: 1;
+  min-width: 180px;
+}
+.qcard .blank-input:focus,
+.qcard .trace-input:focus,
+.qcard .match-select:focus {
+  outline: none;
+  border-color: var(--keyword);
+  background: color-mix(in srgb, var(--keyword) 8%, var(--surface-2));
+}
+.qcard .blank-correct {
+  border-color: var(--string);
+  background: color-mix(in srgb, var(--string) 14%, var(--surface-2));
+}
+.qcard .blank-wrong {
+  border-color: var(--error);
+  background: color-mix(in srgb, var(--error) 14%, var(--surface-2));
+}
+
+/* ---- trace the output ---- */
+.qcard .trace-input {
+  width: 100%;
+  resize: vertical;
+  line-height: 1.6;
+  white-space: pre;
+  overflow-wrap: normal;
+  overflow-x: auto;
+}
+
+/* ---- matching ---- */
+.qcard .match-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.qcard .match-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 10px 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+.qcard .match-left {
+  flex: 1;
+  min-width: 140px;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--text);
+}
+.qcard .match-select {
+  flex: 1;
+  min-width: 180px;
+  cursor: pointer;
+}
+.qcard .match-correct {
+  border-color: var(--string);
+  background: color-mix(in srgb, var(--string) 10%, var(--surface-2));
+}
+.qcard .match-wrong {
+  border-color: var(--error);
+  background: color-mix(in srgb, var(--error) 10%, var(--surface-2));
+}
+
+/* ---- ordering ---- */
+.qcard .order-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.qcard .order-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: border-color 0.18s var(--ease), background 0.18s var(--ease);
+}
+.qcard .order-num {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  background: var(--surface-3);
+  border: 1px solid var(--border);
+}
+.qcard .order-text {
+  flex: 1;
+  font-size: 0.94rem;
+  color: var(--text);
+}
+.qcard .order-controls {
+  display: flex;
+  gap: 4px;
+}
+.qcard .order-btn {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  background: var(--surface-3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.18s var(--ease);
+}
+.qcard .order-btn:not(:disabled):hover {
+  color: var(--text);
+  border-color: var(--border-2);
+}
+.qcard .order-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.qcard .order-correct {
+  border-color: var(--string);
+  background: color-mix(in srgb, var(--string) 12%, var(--surface-2));
+}
+.qcard .order-wrong {
+  border-color: var(--error);
+  background: color-mix(in srgb, var(--error) 12%, var(--surface-2));
+}

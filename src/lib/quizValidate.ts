@@ -30,6 +30,50 @@ function validateQuestion(q: Record<string, unknown>, i: number, path?: string):
         fail(`${where}: correct index out of range`, path)
       }
     }
+  } else if (type === 'true-false') {
+    if (typeof q.correct !== 'boolean') fail(`${where}: "correct" must be a boolean`, path)
+  } else if (type === 'fill-blank') {
+    if (!Array.isArray(q.blanks) || q.blanks.length === 0) fail(`${where}: needs >= 1 "blanks" entry`, path)
+    ;(q.blanks as unknown[]).forEach((b, bi) => {
+      const accept = (b as Record<string, unknown>)?.accept
+      if (!Array.isArray(accept) || accept.length === 0) {
+        fail(`${where}: blank ${bi} needs >= 1 "accept" answer`, path)
+      }
+      for (const a of accept as unknown[]) {
+        if (typeof a !== 'string' || !a.trim()) fail(`${where}: blank ${bi} has an empty "accept" answer`, path)
+      }
+    })
+    if (q.caseSensitive !== undefined && typeof q.caseSensitive !== 'boolean') {
+      fail(`${where}: "caseSensitive" must be a boolean`, path)
+    }
+  } else if (type === 'trace-output') {
+    if (typeof q.expected !== 'string' || !q.expected) fail(`${where}: missing "expected" output`, path)
+  } else if (type === 'match') {
+    for (const side of ['left', 'right'] as const) {
+      if (!Array.isArray(q[side]) || (q[side] as unknown[]).length < 2) {
+        fail(`${where}: "${side}" needs >= 2 entries`, path)
+      }
+    }
+    const right = q.right as unknown[]
+    if (!Array.isArray(q.correct) || (q.correct as unknown[]).length !== (q.left as unknown[]).length) {
+      fail(`${where}: "correct" must have one entry per "left" item`, path)
+    }
+    for (const c of q.correct as unknown[]) {
+      if (typeof c !== 'number' || c < 0 || c >= right.length) fail(`${where}: correct index out of range`, path)
+    }
+  } else if (type === 'order') {
+    if (!Array.isArray(q.items) || q.items.length < 2) fail(`${where}: "items" needs >= 2 entries`, path)
+    const items = q.items as unknown[]
+    if (!Array.isArray(q.correct) || (q.correct as unknown[]).length !== items.length) {
+      fail(`${where}: "correct" must be a permutation of "items" indices`, path)
+    }
+    const seen = new Set<number>()
+    for (const c of q.correct as unknown[]) {
+      if (typeof c !== 'number' || c < 0 || c >= items.length || seen.has(c)) {
+        fail(`${where}: "correct" must be a permutation of "items" indices`, path)
+      }
+      seen.add(c as number)
+    }
   } else if (type === 'write-code') {
     if (q.codeLanguage !== 'java' && q.codeLanguage !== 'javascript') {
       fail(`${where}: codeLanguage must be "java" or "javascript"`, path)

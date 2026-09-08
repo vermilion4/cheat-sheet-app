@@ -1,0 +1,363 @@
+{
+  "language": "java",
+  "slug": "cst8116-midterm-mock",
+  "topic": "Exam Prep",
+  "title": "CST8116 Midterm Mock Exam",
+  "order": 2,
+  "questions": [
+    {
+      "type": "multiple-choice",
+      "prompt": "Which tool translates the statements in a Java source file (`.java`) into a bytecode file (`.class`)?",
+      "options": [
+        "The compiler",
+        "The editor",
+        "The class loader",
+        "The bytecode verifier"
+      ],
+      "correct": [
+        0
+      ],
+      "explanation": "The **compiler** (`javac`) translates source code into bytecode. The editor is where you type the code, the class loader brings a `.class` file into the running JVM, and the bytecode verifier checks that bytecode is safe before it runs — none of them perform the translation."
+    },
+    {
+      "type": "true-false",
+      "prompt": "Java source code is compiled to bytecode, which the Java Virtual Machine then executes.",
+      "correct": true,
+      "explanation": "This two-step model is what makes Java portable. `javac` compiles to bytecode once, and any platform with a JVM can execute that same `.class` file — hence \"write once, run anywhere\"."
+    },
+    {
+      "type": "multiple-choice",
+      "prompt": "Which is the correct signature for the entry point of a Java application?",
+      "options": [
+        "public static void main(String[] args)",
+        "public void main(String[] args)",
+        "static void Main(String[] args)",
+        "public static int main(String args)"
+      ],
+      "correct": [
+        0
+      ],
+      "explanation": "The JVM looks for exactly `public static void main(String[] args)`. It must be `public` so the JVM can call it, `static` so no object is needed, return `void`, be spelled `main` in lowercase, and take a `String` **array**."
+    },
+    {
+      "type": "order",
+      "prompt": "Put the steps of building and running a Java program in the correct order.",
+      "items": [
+        "The JVM executes the bytecode",
+        "The programmer writes a `.java` source file",
+        "The compiler produces a `.class` bytecode file"
+      ],
+      "correct": [
+        1,
+        2,
+        0
+      ],
+      "explanation": "You write source (`.java`), the compiler turns it into bytecode (`.class`), and the JVM executes that bytecode. Compilation happens before execution — a program with compile errors never reaches the JVM."
+    },
+    {
+      "type": "multiple-choice",
+      "prompt": "Which of the following is a valid Java variable name?",
+      "options": [
+        "2ndValue",
+        "total-price",
+        "totalPrice",
+        "class"
+      ],
+      "correct": [
+        2
+      ],
+      "explanation": "An identifier may not start with a digit (`2ndValue`), may not contain a hyphen (`total-price` is read as subtraction), and may not be a reserved word (`class`). `totalPrice` is valid and follows the camelCase convention for variables."
+    },
+    {
+      "type": "multiple-choice",
+      "prompt": "Which of these is **not** a primitive type in Java?",
+      "options": [
+        "int",
+        "double",
+        "String",
+        "boolean"
+      ],
+      "correct": [
+        2
+      ],
+      "explanation": "`String` is a class, so a `String` variable holds a *reference* to an object. `int`, `double` and `boolean` are three of the eight primitive types, which hold their value directly."
+    },
+    {
+      "type": "fill-blank",
+      "prompt": "Complete the declaration of a constant that cannot be reassigned after it is initialized:\n\n```java\n___ double TAX_RATE = 0.13;\n```",
+      "blanks": [
+        {
+          "accept": [
+            "final"
+          ],
+          "label": "keyword"
+        }
+      ],
+      "explanation": "The `final` keyword makes a variable's value unchangeable after assignment. By convention constants are named in `UPPER_SNAKE_CASE`, which is why the variable is `TAX_RATE` rather than `taxRate`."
+    },
+    {
+      "type": "predict-output",
+      "prompt": "What does this print?\n\n```java\ndouble d = 3.99;\nint n = (int) d;\nSystem.out.println(n);\n```",
+      "options": [
+        "3",
+        "4",
+        "3.99",
+        "0"
+      ],
+      "correct": [
+        0
+      ],
+      "explanation": "Casting a `double` to an `int` **truncates** toward zero — it discards the fractional part rather than rounding. `3.99` becomes `3`. To round you would use `Math.round(d)` instead."
+    },
+    {
+      "type": "true-false",
+      "prompt": "In Java, assigning an `int` value to a `double` variable requires an explicit cast.",
+      "correct": false,
+      "explanation": "`int` to `double` is a **widening** conversion — no information is lost, so Java performs it automatically: `double d = 5;` compiles fine. Only **narrowing** conversions such as `double` to `int` need an explicit cast."
+    },
+    {
+      "type": "trace-output",
+      "prompt": "What is the exact console output?\n\n```java\nint a = 7;\nint b = 2;\nSystem.out.println(a / b);\nSystem.out.println(a % b);\n```",
+      "expected": "3\n1",
+      "explanation": "Both operands are `int`, so `/` performs **integer division**: `7 / 2` is `3`, with the remainder discarded. The `%` (modulo) operator gives that discarded remainder, `1`. Writing `7 / 2.0` would instead give `3.5`."
+    },
+    {
+      "type": "predict-output",
+      "prompt": "What does this print?\n\n```java\nSystem.out.println(\"Total: \" + 1 + 2);\n```",
+      "options": [
+        "Total: 12",
+        "Total: 3",
+        "Total: 1 2",
+        "A compile error"
+      ],
+      "correct": [
+        0
+      ],
+      "explanation": "`+` is evaluated left to right. `\"Total: \" + 1` produces the String `\"Total: 1\"`, and then `+ 2` appends `\"2\"` to it. To add the numbers first you would need parentheses: `\"Total: \" + (1 + 2)`."
+    },
+    {
+      "type": "predict-output",
+      "prompt": "What does this print?\n\n```java\nint count = 0;\nboolean ok = (count > 0) && (100 / count > 5);\nSystem.out.println(ok);\n```",
+      "options": [
+        "false",
+        "true",
+        "An ArithmeticException at run time",
+        "A compile error"
+      ],
+      "correct": [
+        0
+      ],
+      "explanation": "`&&` **short-circuits**: because the left operand `count > 0` is already `false`, the whole expression must be `false`, so the right operand is never evaluated. The division by zero never happens and `false` is printed."
+    },
+    {
+      "type": "fill-blank",
+      "prompt": "Complete the line that creates a `Scanner` for reading keyboard input:\n\n```java\nScanner sc = new ___(___);\n```",
+      "blanks": [
+        {
+          "accept": [
+            "Scanner"
+          ],
+          "label": "class"
+        },
+        {
+          "accept": [
+            "System.in"
+          ],
+          "label": "source"
+        }
+      ],
+      "explanation": "`new Scanner(System.in)` builds a Scanner attached to standard input — the keyboard. It also needs `import java.util.Scanner;` at the top of the file, since `Scanner` is not in `java.lang`."
+    },
+    {
+      "type": "multiple-choice",
+      "prompt": "A program must read a person's full name, which contains spaces. Which `Scanner` method should it call?",
+      "options": [
+        "next()",
+        "nextLine()",
+        "nextString()",
+        "readLine()"
+      ],
+      "correct": [
+        1
+      ],
+      "explanation": "`nextLine()` reads everything up to the end of the line, spaces included. `next()` stops at the first whitespace, so it would return only the first name. `nextString()` and `readLine()` are not `Scanner` methods."
+    },
+    {
+      "type": "trace-output",
+      "prompt": "What is the exact console output?\n\n```java\ndouble price = 12.5;\nSystem.out.printf(\"$%.2f%n\", price);\n```",
+      "expected": "$12.50",
+      "explanation": "`%.2f` formats the `double` with exactly two digits after the decimal point, so `12.5` prints as `12.50`. The `$` is literal text, and `%n` writes a platform-appropriate line break."
+    },
+    {
+      "type": "predict-output",
+      "prompt": "What does this print?\n\n```java\nString a = new String(\"hi\");\nString b = new String(\"hi\");\nSystem.out.println(a == b);\nSystem.out.println(a.equals(b));\n```",
+      "options": [
+        "false\ntrue",
+        "true\ntrue",
+        "false\nfalse",
+        "true\nfalse"
+      ],
+      "correct": [
+        0
+      ],
+      "explanation": "`new String(...)` forces two separate objects, so `a` and `b` hold different references and `==` — which compares references — is `false`. `.equals()` compares the **characters**, which are identical, so it is `true`. Always compare String content with `.equals()`."
+    },
+    {
+      "type": "trace-output",
+      "prompt": "What is the exact console output?\n\n```java\nString s = \"Algonquin\";\nSystem.out.println(s.length());\nSystem.out.println(s.charAt(0));\nSystem.out.println(s.substring(0, 3));\n```",
+      "expected": "9\nA\nAlg",
+      "explanation": "`\"Algonquin\"` has 9 characters. `charAt(0)` returns the first character, `'A'` — indexing starts at 0. `substring(0, 3)` is end-**exclusive**, so it takes indexes 0, 1 and 2: `\"Alg\"`."
+    },
+    {
+      "type": "predict-output",
+      "prompt": "What does this print?\n\n```java\nint score = 85;\nif (score >= 90) {\n    System.out.println(\"A\");\n} else if (score >= 80) {\n    System.out.println(\"B\");\n} else if (score >= 70) {\n    System.out.println(\"C\");\n} else {\n    System.out.println(\"F\");\n}\n```",
+      "options": [
+        "B",
+        "A",
+        "C",
+        "B\nC"
+      ],
+      "correct": [
+        0
+      ],
+      "explanation": "The conditions are tested top to bottom and only the **first** true branch runs. `85 >= 90` is false; `85 >= 80` is true, so `B` prints and the rest of the chain is skipped entirely."
+    },
+    {
+      "type": "trace-output",
+      "prompt": "What is the exact console output?\n\n```java\nint day = 2;\nswitch (day) {\n    case 1:\n        System.out.println(\"Mon\");\n    case 2:\n        System.out.println(\"Tue\");\n    case 3:\n        System.out.println(\"Wed\");\n        break;\n    default:\n        System.out.println(\"Other\");\n}\n```",
+      "expected": "Tue\nWed",
+      "explanation": "Execution jumps to `case 2` and then **falls through** into `case 3`, because `case 2` has no `break`. The `break` at the end of `case 3` finally exits the switch, so `default` never runs. Missing `break` statements are a classic exam trap."
+    },
+    {
+      "type": "trace-output",
+      "prompt": "What is the exact console output?\n\n```java\nint sum = 0;\nfor (int i = 1; i <= 4; i++) {\n    sum += i;\n}\nSystem.out.println(sum);\n```",
+      "expected": "10",
+      "explanation": "The loop runs with `i` equal to 1, 2, 3 and 4 — the condition is `i <= 4`, so 4 is included — accumulating `1 + 2 + 3 + 4 = 10`. `sum` is printed once, after the loop finishes."
+    },
+    {
+      "type": "trace-output",
+      "prompt": "What is the exact console output?\n\n```java\nint i = 5;\ndo {\n    System.out.println(i);\n    i++;\n} while (i < 3);\n```",
+      "expected": "5",
+      "explanation": "A `do-while` tests its condition **after** the body, so the body always runs at least once: `5` is printed. Then `i` becomes 6, `6 < 3` is false, and the loop ends. An equivalent `while` loop would have printed nothing."
+    },
+    {
+      "type": "multiple-choice",
+      "prompt": "Which loop is guaranteed to execute its body at least once?",
+      "options": [
+        "while",
+        "for",
+        "do-while",
+        "Enhanced for (for-each)"
+      ],
+      "correct": [
+        2
+      ],
+      "explanation": "Only `do-while` places its condition after the body, so the body always runs once before the first test. `while` and `for` test first and may run zero times; a for-each over an empty array runs zero times as well."
+    },
+    {
+      "type": "order",
+      "prompt": "Put the four parts of a `for` loop in the order the JVM performs them on the **first** iteration.",
+      "items": [
+        "The update expression runs",
+        "The initialization statement runs once",
+        "The loop body executes",
+        "The condition is tested"
+      ],
+      "correct": [
+        1,
+        3,
+        2,
+        0
+      ],
+      "explanation": "A `for` loop initializes once, then repeats the cycle: test the condition, run the body, run the update, test again. Because the update runs *after* the body, the loop variable still holds its old value throughout that first pass through the body."
+    },
+    {
+      "type": "match",
+      "prompt": "Match each class member to what it does.",
+      "left": [
+        "Constructor",
+        "Accessor (getter)",
+        "Mutator (setter)",
+        "Instance variable"
+      ],
+      "right": [
+        "Returns the current value of a field",
+        "Changes the value of a field",
+        "Initializes a new object's state",
+        "Holds data belonging to one object"
+      ],
+      "correct": [
+        2,
+        0,
+        1,
+        3
+      ],
+      "explanation": "A constructor runs once when `new` creates an object and sets up its initial state. Accessors read a private field, mutators write to it, and instance variables are the fields themselves — one independent copy per object."
+    },
+    {
+      "type": "true-false",
+      "prompt": "Encapsulation is achieved by declaring instance variables `private` and providing `public` accessor and mutator methods.",
+      "correct": true,
+      "explanation": "Making fields `private` hides the internal representation, and the `public` accessors/mutators become the only controlled way in. This lets a mutator validate incoming values, and lets you change the internals later without breaking other classes."
+    },
+    {
+      "type": "multiple-choice",
+      "prompt": "Which statement about a Java constructor is **true**?",
+      "options": [
+        "It has the same name as the class and declares no return type",
+        "It must declare a `void` return type",
+        "It can only be called with the dot operator on an existing object",
+        "Every class must explicitly declare exactly one constructor"
+      ],
+      "correct": [
+        0
+      ],
+      "explanation": "A constructor is identified by having the class's exact name and **no** return type at all — not even `void`, which would make it an ordinary method. It is invoked by `new`, not by the dot operator, and a class that declares no constructor gets a default no-argument one."
+    },
+    {
+      "type": "multiple-choice",
+      "prompt": "Given `double[] prices = new double[5];`, which statement is true?",
+      "options": [
+        "`prices.length` is 5 and the valid indexes are 0 to 4",
+        "`prices.length()` is 5 and the valid indexes are 1 to 5",
+        "`prices.size()` is 5 and the valid indexes are 0 to 5",
+        "The array is empty until each element is explicitly assigned"
+      ],
+      "correct": [
+        0
+      ],
+      "explanation": "Arrays expose `length` as a **field**, not a method, so there are no parentheses — `.length()` is a `String` method and `.size()` belongs to collections. With 5 elements the indexes run 0 through 4, and each element is already initialized to the `double` default of `0.0`."
+    },
+    {
+      "type": "predict-output",
+      "prompt": "What does this print?\n\n```java\nint[] a = {4, 8, 15};\nint total = 0;\nfor (int i = 0; i < a.length; i++) {\n    total += a[i];\n}\nSystem.out.println(total);\n```",
+      "options": [
+        "27",
+        "15",
+        "3",
+        "ArrayIndexOutOfBoundsException"
+      ],
+      "correct": [
+        0
+      ],
+      "explanation": "The loop visits indexes 0, 1 and 2 — `i < a.length` stops correctly at 3 — adding `4 + 8 + 15 = 27`. Using `i <= a.length` instead is the classic off-by-one that throws `ArrayIndexOutOfBoundsException`."
+    },
+    {
+      "type": "order",
+      "prompt": "Put the steps of the software development process in the correct order.",
+      "items": [
+        "Code the solution in Java",
+        "Test and debug the program",
+        "Analyse the problem and identify its inputs and outputs",
+        "Design an algorithm using pseudocode or a flowchart"
+      ],
+      "correct": [
+        2,
+        3,
+        0,
+        1
+      ],
+      "explanation": "Analysis comes first — you cannot design a solution to a problem you have not defined. Design (pseudocode or a flowchart) is language-independent and catches logic errors before they become code. Only then do you implement, and finally test and debug."
+    }
+  ]
+}
